@@ -20,7 +20,7 @@ class _DashboardState extends State<Dashboard> {
     Center(
       child: Column(    
         
-        children: [
+        children: [          
           Container(
             height: 50,
             width: 200,
@@ -32,14 +32,16 @@ class _DashboardState extends State<Dashboard> {
             ElevatedButton(onPressed: (){}, child: Text('Add')),
             
             Expanded(
-              child: ListView.builder(
+              
+              child:               
+              ListView.builder(
                 itemCount: ListName.length,
                 itemBuilder: (BuildContext context,index){
                  return  ListTile(
                   tileColor: Colors.grey,
                   title: Text(ListName[index]),
                   trailing: SizedBox(
-                    width: 100,
+                    width: 50,
                     child: Row(                    
                       children: [                        
                         Icon(Icons.delete),
