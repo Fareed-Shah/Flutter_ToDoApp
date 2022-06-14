@@ -9,19 +9,20 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
-  List<String> Todo_List = ['Fareed','Shah'];
-   
+  List<String> Todo_List = ['Fareed','Shah'];   
   TextEditingController addtextcontroller =TextEditingController();
 
   Addtodo_List(){    
-    setState(() {
-      
+    setState(() {      
     Todo_List.add(addtextcontroller.text);
     addtextcontroller.clear();
-//    print(addtextcontroller.text);  
-    });
-    
+    });        
+  }
+
+  Cleartodo_List(){
+    setState(() {
+    Todo_List.clear();
+    });    
     
   }
 
@@ -44,13 +45,23 @@ class _DashboardState extends State<Dashboard> {
               controller: addtextcontroller,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: 'Enter Item'                
+                hintText: 'Enter Item' 
+                               
               ),
             )),
-            ElevatedButton(onPressed: (){
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 
-           Addtodo_List();
-            }, child: Text('Add')),
+                ElevatedButton(onPressed: (){                    
+                Addtodo_List();
+                }, child: Text('Add')),                
+                ElevatedButton(onPressed: (){
+                  Cleartodo_List();
+                },
+                 child: Text('Clear'))
+              ],
+            ),
             
             Expanded(
               
@@ -64,15 +75,27 @@ class _DashboardState extends State<Dashboard> {
                   leading: CircleAvatar(child: Text(Todo_List[index][0]),),
                   tileColor: Colors.grey,
                   title: Text(Todo_List[index]),
-                  trailing: SizedBox(
-                    width: 50,
-                    child: Row(                    
-                      children: [                        
-                        Icon(Icons.delete),
-                        Icon(Icons.edit),
+                  trailing: 
+                  SizedBox(width: 100,
+                    child: Row(
+                      children: [
+
+                        IconButton(
+                        iconSize: 30.0,tooltip: 'Delete',
+                        onPressed: (){
+
+                        },
+                        icon: Icon(Icons.delete,color: Colors.red,)),                        
+                        IconButton(iconSize: 30.0,tooltip: 'Edit',
+                        onPressed: (){
+
+                        }, icon: Icon(Icons.edit,color: Colors.lightBlue))
+                       
                       ],
                     ),
-                  ),
+                  )
+                  
+
                  );
                 }
                 
