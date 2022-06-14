@@ -10,9 +10,20 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
-  List<String> ListName = ['Fareed','Shah'];
+  List<String> Todo_List = ['Fareed','Shah'];
    
   TextEditingController addtextcontroller =TextEditingController();
+
+  Addtodo_List(){    
+    setState(() {
+      
+    Todo_List.add(addtextcontroller.text);
+    addtextcontroller.clear();
+//    print(addtextcontroller.text);  
+    });
+    
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,26 +38,32 @@ class _DashboardState extends State<Dashboard> {
           Container(
             margin: EdgeInsets.all(10),            
             height: 50,
-            width: 200,
+            width: 200,            
             child: TextField(
               autofocus: true,
               controller: addtextcontroller,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: 'Enter Name'                
+                hintText: 'Enter Item'                
               ),
             )),
-            ElevatedButton(onPressed: (){}, child: Text('Add')),
+            ElevatedButton(onPressed: (){
+                
+           Addtodo_List();
+            }, child: Text('Add')),
             
             Expanded(
               
               child:               
+              
               ListView.builder(
-                itemCount: ListName.length,
+                padding: EdgeInsets.all(32),
+                itemCount: Todo_List.length,
                 itemBuilder: (BuildContext context,index){
                  return  ListTile(
+                  leading: CircleAvatar(child: Text(Todo_List[index][0]),),
                   tileColor: Colors.grey,
-                  title: Text(ListName[index]),
+                  title: Text(Todo_List[index]),
                   trailing: SizedBox(
                     width: 50,
                     child: Row(                    
