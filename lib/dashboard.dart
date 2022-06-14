@@ -11,6 +11,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
 
   List<String> ListName = ['Fareed','Shah'];
+   
+  TextEditingController addtextcontroller =TextEditingController();
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(    
@@ -26,9 +29,10 @@ class _DashboardState extends State<Dashboard> {
             height: 50,
             width: 200,
             child: TextField(
+              autofocus: true,
+              controller: addtextcontroller,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-
                 hintText: 'Enter Name'                
               ),
             )),
