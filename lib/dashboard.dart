@@ -14,19 +14,22 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
    return Scaffold(    
-    appBar: AppBar(title: Text('Dashboard'),),
+    appBar: AppBar(title: Text('To Do List'),centerTitle: true,),
 
     body:  
     Center(
       child: Column(    
         
-        children: [          
+        children: [                    
           Container(
+            margin: EdgeInsets.all(10),            
             height: 50,
             width: 200,
             child: TextField(
+              textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: 'Enter Name',                
+
+                hintText: 'Enter Name'                
               ),
             )),
             ElevatedButton(onPressed: (){}, child: Text('Add')),
