@@ -11,12 +11,20 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<String> Todo_List = ['Fareed','Shah'];   
   TextEditingController addtextcontroller =TextEditingController();
+  TextEditingController updatetodolist =TextEditingController();
 
   Addtodo_List(){    
     setState(() {      
     Todo_List.add(addtextcontroller.text);
     addtextcontroller.clear();
-    });        
+   }) ;        
+  }
+
+  deleteitem(index){
+   setState(() {      
+   Todo_List.removeAt(index);                                          
+    }) ;
+
   }
 
   Cleartodo_List(){
@@ -63,10 +71,8 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
             
-            Expanded(
-              
-              child:               
-              
+            Expanded(              
+              child:                             
               ListView.builder(
                 padding: EdgeInsets.all(32),
                 itemCount: Todo_List.length,
@@ -79,15 +85,29 @@ class _DashboardState extends State<Dashboard> {
                   SizedBox(width: 100,
                     child: Row(
                       children: [
-
                         IconButton(
                         iconSize: 30.0,tooltip: 'Delete',
                         onPressed: (){
-
+                        deleteitem(index);                         
                         },
                         icon: Icon(Icons.delete,color: Colors.red,)),                        
                         IconButton(iconSize: 30.0,tooltip: 'Edit',
                         onPressed: (){
+                        showDialog(
+                          context: context,
+                           builder: (context)
+                           {
+                            return AlertDialog(
+                              title: Text('Update To Do List'),
+                              content: TextField(
+                                controller:  updatetodolist,                                
+                              ),
+                              actions: [
+                                ElevatedButton(onPressed: (){}, child: Text('Ok'))
+                              ],
+                            );
+                           }
+                           );
 
                         }, icon: Icon(Icons.edit,color: Colors.lightBlue))
                        
