@@ -11,7 +11,10 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<String> Todo_List = ['Fareed','Shah'];   
   TextEditingController addtextcontroller =TextEditingController();
-  TextEditingController updatetodolist =TextEditingController();
+  TextEditingController  updatetodolist =TextEditingController();
+
+
+
 
   Addtodo_List(){    
     setState(() {      
@@ -99,11 +102,30 @@ class _DashboardState extends State<Dashboard> {
                            {
                             return AlertDialog(
                               title: Text('Update To Do List'),
-                              content: TextField(
+                              content: TextField(                                                                
+                                autofocus: true,                                
+                                decoration: InputDecoration(
+                                
+                                ),
                                 controller:  updatetodolist,                                
                               ),
                               actions: [
-                                ElevatedButton(onPressed: (){}, child: Text('Ok'))
+                                ElevatedButton(onPressed: (){
+                                   Navigator.of(context).pop();
+                                          setState(
+                                            () {
+                                              
+                                              Todo_List.replaceRange(
+                                                index,
+                                                index + 1,
+                                                {updatetodolist.text},
+                                              );
+                                               updatetodolist.clear();
+                                              
+                                            },
+                                          ); 
+
+                                }, child: Text('Ok'))
                               ],
                             );
                            }
@@ -127,3 +149,6 @@ class _DashboardState extends State<Dashboard> {
    );
   }
 }
+
+
+
