@@ -10,14 +10,12 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
+final _formkey = GlobalKey<FormState>();
 
-
-  List<String> Todo_List = ['Fareed','Shah'];   
-  
+  List<String> Todo_List = ['Fareed','Shah'];     
   TextEditingController addtextcontroller =TextEditingController();
   TextEditingController  updatetodolist =TextEditingController();
 
-   bool _error = false;
 
 
   Addtodo_List(){    
@@ -107,25 +105,39 @@ class _DashboardState extends State<Dashboard> {
                             return AlertDialog(
                               title: Text('Update To Do List'),
                               
-                              content: TextField(                                                                
-                                autofocus: true,                                
-                                decoration: InputDecoration(
-                                errorText: _error ? 'Please Add To Do List' : null ,
-                                ),
-                                controller:  updatetodolist,                                
+                              content:
+                              
+                              //  TextField(                                                                
+                              //   autofocus: true,                                
+                              //   decoration: InputDecoration(
+                              //   errorText: _error ? 'Please Add To Do List' : null ,
+                              //   ),
+                              //   controller:  updatetodolist,                                
+                              // ),
+                              Form(
+                                key: _formkey,
+                                child: 
+                                TextFormField(     
+                                  controller:  updatetodolist,                              
+                                validator: (value){                                  
+                                  if(value!.isEmpty)                                     
+                                  return 'Please Enter ToDo-List';
+                                  return null;                                                                    
+                                },
+                              )
+                              
                               ),
+                           
                               actions: [
                                 ElevatedButton(onPressed: (){
-                                   Navigator.of(context).pop();
 
-                                     if(updatetodolist.text.isEmpty){
-                                      setState(() {
-                                        _error=true;                                        
-                                      });   
+                                if(_formkey.currentState!.validate())
+                                {
 
-                                      return;
-                                      
-                                     }
+                                
+                               
+
+                                   Navigator.of(context).pop();                                                                                                            
                                           setState(
                                             () {                                                                                          
                                               Todo_List.replaceRange(
@@ -138,7 +150,10 @@ class _DashboardState extends State<Dashboard> {
                                             
                                           ); 
 
-                                }, child: Text('Ok'))
+                                }}
+                                
+
+                                , child: Text('Ok'))
                               ],
                             );
                            }
