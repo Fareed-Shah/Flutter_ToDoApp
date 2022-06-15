@@ -9,11 +9,15 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+
+
   List<String> Todo_List = ['Fareed','Shah'];   
+  
   TextEditingController addtextcontroller =TextEditingController();
   TextEditingController  updatetodolist =TextEditingController();
 
-
+   bool _error = false;
 
 
   Addtodo_List(){    
@@ -102,27 +106,36 @@ class _DashboardState extends State<Dashboard> {
                            {
                             return AlertDialog(
                               title: Text('Update To Do List'),
+                              
                               content: TextField(                                                                
                                 autofocus: true,                                
                                 decoration: InputDecoration(
-                                
+                                errorText: _error ? 'Please Add To Do List' : null ,
                                 ),
                                 controller:  updatetodolist,                                
                               ),
                               actions: [
                                 ElevatedButton(onPressed: (){
                                    Navigator.of(context).pop();
+
+                                     if(updatetodolist.text.isEmpty){
+                                      setState(() {
+                                        _error=true;                                        
+                                      });   
+
+                                      return;
+                                      
+                                     }
                                           setState(
-                                            () {
-                                              
+                                            () {                                                                                          
                                               Todo_List.replaceRange(
                                                 index,
                                                 index + 1,
                                                 {updatetodolist.text},
                                               );
                                                updatetodolist.clear();
-                                              
-                                            },
+                                              } 
+                                            
                                           ); 
 
                                 }, child: Text('Ok'))
