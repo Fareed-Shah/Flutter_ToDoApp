@@ -11,19 +11,25 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
 
 final _formkey = GlobalKey<FormState>();
+final _itemkey = GlobalKey<FormState>();
+
 
   List<String> Todo_List = ['Fareed','Shah'];     
   TextEditingController addtextcontroller =TextEditingController();
   TextEditingController  updatetodolist =TextEditingController();
 
 
-
+ 
+  
   Addtodo_List(){    
+
+    if(_itemkey.currentState!.validate())
+    {
     setState(() {      
     Todo_List.add(addtextcontroller.text);
     addtextcontroller.clear();
    }) ;        
-  }
+  }}
 
   deleteitem(index){
    setState(() {      
@@ -53,13 +59,20 @@ final _formkey = GlobalKey<FormState>();
             margin: EdgeInsets.all(10),            
             height: 50,
             width: 200,            
-            child: TextField(
-              autofocus: true,
-              controller: addtextcontroller,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                hintText: 'Enter Item' 
-                               
+            child: Form(
+              key: _itemkey,
+              child: TextFormField(
+                autofocus: true,                
+                controller: addtextcontroller,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: 'Enter Item'                                  
+                ),
+                validator: (addval){
+                  if(addval!.isEmpty)
+                    return 'Cant Insert Blank';
+                    return null;                  
+                },
               ),
             )),
             Row(
